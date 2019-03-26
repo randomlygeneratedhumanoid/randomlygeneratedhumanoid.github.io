@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Device Invention</title>
+    <title>The Totalitarian Chicken Coop</title>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+    <script>
+        var accessToken = "7de9fbc026de3f6fead7b928c5a40f9452bc9344";
+        var deviceID = "370039000f51353532343635";
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/chickenStatuses";
+
+        function callback(data, status) { //This function checks that communcation is happening
+            if (status == "success") {
+                setTimeout(getReading, 1000); //this calls the getReading function every second
+                document.getElementById("reading").innerHTML = (data.result);
+            } else {
+                alert("There was a problem");
+            }
+        }
+
+        function getReading() { //this function does the actual reading
+            $.get(url, {
+                access_token: accessToken
+            }, callback);
+        }
+    </script>
 </head>
-<body bgcolor = "#000000">
-    <h1 style = "color:#00FFFF"> this is my site </h1>
-    <img src="/images/pencil.png" alt="Pencil Image" style="width:500px;height:260px;">
+<h1 id="reading" ></h1>
+    <script>
+        getReading();
+    </script>
+
 </body>
+
 </html>
